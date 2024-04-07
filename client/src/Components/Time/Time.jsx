@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Time.css';
+import { RiCalendar2Line } from 'react-icons/ri';
 
 function Time() {
   const [currentDateTime, setCurrentDateTime] = useState('');
@@ -13,10 +14,18 @@ function Time() {
     return () => clearInterval(intervalId);
   }, []);
 
+  const currentDate = new Date().toLocaleDateString();
+  const currentTime = new Date().toLocaleTimeString();
+
   return (
     <div className="time-card">
-      <h2>Current Time</h2>
-      <p>{currentDateTime}</p>
+      <div className="time-container">
+        <p className="time">{currentTime}</p>
+        <div className="date-container">
+          <RiCalendar2Line className="calendar-icon" />
+          <p className="date">{currentDate}</p>
+        </div>
+      </div>
     </div>
   );
 }
