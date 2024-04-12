@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Today.css';
 import { WiHumidity, WiStrongWind } from 'react-icons/wi';
 
-function Today() {
+function Today({ onWeatherUpdate }) {
   const [city, setCity] = useState('London');
   const [weatherData, setWeatherData] = useState(null);
 
@@ -11,11 +11,13 @@ function Today() {
       .then(response => response.json())
       .then(data => {
         setWeatherData(data);
+        // Envía el estado del clima al componente padre
+        onWeatherUpdate(data.weather[0].main);
       })
       .catch(error => {
         console.error('Error al obtener datos del clima:', error);
       });
-  }, [city]);
+  }, [city, onWeatherUpdate]);
 
   const handleCityChange = (e) => {
     setCity(e.target.value);
