@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const apiKey = '5d83f0cd3306142513ccc3dc14d1583d';
 
-export const getWeather = async (req, res) => {
+export const getTodayWeather = async (req, res) => {
     try {
         let city;
         if (req.query.city) {

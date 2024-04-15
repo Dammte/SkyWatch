@@ -1,8 +1,11 @@
 import express from 'express';
-import { getWeather } from '../Controllers/weatherController.js';
+import { getTodayWeather} from '../Controllers/TodayWeatherController.js';
+import { getWeekWeather} from '../Controllers/WeekWeatherController.js';
 
 const router = express.Router();
 
-router.get('/', getWeather);
+router.get('/today', getTodayWeather);
+
+router.get('/week', getWeekWeather);
 
 export default router;

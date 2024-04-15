@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import './Today.css';
 import { WiHumidity, WiStrongWind } from 'react-icons/wi';
+import { FaSearch } from 'react-icons/fa';
 
 function Today({ onWeatherUpdate }) {
-  const [city, setCity] = useState('London');
+  const [city, setCity] = useState('Tokio');
   const [weatherData, setWeatherData] = useState(null);
 
-  useEffect(() => {
-    fetch(`http://localhost:4000/api/weather?city=${city}`)
+  const fetchWeatherData = () => {
+    fetch(`http://localhost:4000/api/weather/today?city=${city}`)
       .then(response => response.json())
       .then(data => {
         setWeatherData(data);
@@ -17,10 +18,14 @@ function Today({ onWeatherUpdate }) {
       .catch(error => {
         console.error('Error al obtener datos del clima:', error);
       });
-  }, [city, onWeatherUpdate]);
+  };
 
   const handleCityChange = (e) => {
     setCity(e.target.value);
+  };
+
+  const handleSearchClick = () => {
+    fetchWeatherData();
   };
 
   return (
@@ -33,6 +38,9 @@ function Today({ onWeatherUpdate }) {
           onChange={handleCityChange}
           className="city-input"
         />
+        <button onClick={handleSearchClick} className="search-button">
+          <FaSearch className="search-icon" />
+        </button>
       </div>
       {weatherData && weatherData.main && weatherData.weather ? (
         <div className="weather-details">
